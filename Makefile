@@ -57,6 +57,14 @@ bench:
 	@echo ">> Running benchmarks..."
 	$(GO) test ./... -bench=. -benchmem -run='^$$'
 
+## bench-cpu: Run benchmarks and generate a CPU profile for analysis
+bench-cpu:
+	@echo ">> Running benchmarks with CPU profiling..."
+	@mkdir -p $(BUILD_DIR)/profiles
+	$(GO) test ./... -bench=. -benchmem -run='^$$' -cpuprofile=$(BUILD_DIR)/profiles/cpu.prof
+	@echo ">> CPU profile written to $(BUILD_DIR)/profiles/cpu.prof"
+	@echo ">> Inspect with: go tool pprof $(BUILD_DIR)/profiles/cpu.prof"
+
 ## lint: Run golangci-lint
 lint:
 	@echo ">> Running linter..."
@@ -109,4 +117,4 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@sed -n 's/^## //p' $(MAKEFILE_LIST) | column -t -s ':' | sed -e 's/^/  /'
+	@sed -n 's/^## //p' $(MAKEFILE_LIST)
