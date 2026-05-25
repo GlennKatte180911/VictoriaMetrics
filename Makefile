@@ -98,6 +98,12 @@ docker-build:
 check: fmt vet lint
 	@echo ">> All checks passed."
 
+# Personal note: increase default test timeout from 120s to 300s for slower machines
+## test-slow: Run all unit tests with extended timeout (useful on slower hardware)
+test-slow:
+	@echo ">> Running tests (extended timeout)..."
+	$(GO) test ./... -count=1 -timeout 300s
+
 ## help: Show this help message
 help:
 	@echo "Usage: make [target]"
