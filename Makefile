@@ -106,9 +106,7 @@ docker-build:
 check: fmt vet lint
 	@echo ">> All checks passed."
 
-## test-short: Run only short tests (faster feedback during development)
-test-short:
-	@echo ">> Running short tests..."
-	$(GO) test ./... -count=1 -timeout 60s -short
-
-## help
+## help: Display available targets
+help:
+	@echo "Available targets:"
+	@grep -E '^## ' $(MAKEFILE_LIST) | sed 's/## /  /' | column -t -s ':'
