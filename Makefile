@@ -106,9 +106,9 @@ docker-build:
 check: fmt vet lint
 	@echo ">> All checks passed."
 
-## help: Show this help message
-help:
-	@echo "Available targets:"
-	@grep -E '^## ' $(MAKEFILE_LIST) | sed 's/^## /  /'
+## test-short: Run only short tests (faster feedback during development)
+test-short:
+	@echo ">> Running short tests..."
+	$(GO) test ./... -count=1 -timeout 60s -short
 
-# Personal fork - added help target so I can quickly remind myself what each target does
+## help
